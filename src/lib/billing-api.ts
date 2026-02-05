@@ -202,7 +202,10 @@ export async function getLanggananByPelangganId(pelangganId: number): Promise<La
   try {
     const token = await getAdminToken();
 
-    const response = await fetch(`${API_URL}/langganan?pelanggan_id=${pelangganId}`, {
+    // Add timestamp to bypass cache and get fresh data
+    // Use trailing slash as required by the API endpoint
+    const timestamp = Date.now();
+    const response = await fetch(`${API_URL}/langganan/?pelanggan_id=${pelangganId}&_t=${timestamp}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -212,12 +215,18 @@ export async function getLanggananByPelangganId(pelangganId: number): Promise<La
     });
 
     if (!response.ok) {
+      console.error('API Response not OK:', response.status, response.statusText);
       return null;
     }
 
     const data = await response.json();
     const langgananData = data.data || data;
-    return Array.isArray(langgananData) ? langgananData[0] : langgananData;
+    if (Array.isArray(langgananData)) {
+      // Filter to find the langganan with matching pelanggan_id
+      const matchedLangganan = langgananData.find((l: Langganan) => l.pelanggan_id === pelangganId);
+      return matchedLangganan || null;
+    }
+    return langgananData;
   } catch (error) {
     console.error('Error fetching langganan:', error);
     return null;
