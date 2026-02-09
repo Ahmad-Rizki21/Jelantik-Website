@@ -10,12 +10,38 @@ export default function ContactPage() {
     package: "",
     message: "",
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Terima kasih! Pesan Anda telah terkirim. Tim kami akan segera menghubungi Anda.");
-    setFormData({ name: "", email: "", phone: "", package: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitMessage(null);
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage({ type: 'success', text: 'Terima kasih! Pesan Anda telah terkirim. Tim kami akan segera menghubungi Anda.' });
+        setFormData({ name: "", email: "", phone: "", package: "", message: "" });
+      } else {
+        setSubmitMessage({ type: 'error', text: result.error || 'Gagal mengirim pesan. Silakan coba lagi.' });
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitMessage({ type: 'error', text: 'Terjadi kesalahan saat mengirim pesan. Silakan coba lagi.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -130,11 +156,21 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {submitMessage && (
+                  <div className={`p-4 rounded-xl ${submitMessage.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {submitMessage.text}
+                  </div>
+                )}
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600 hover:shadow-lg transition-all"
+                  disabled={isSubmitting}
+                  className={`w-full py-4 rounded-xl text-white font-semibold transition-all ${
+                    isSubmitting 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : 'bg-orange-500 hover:bg-orange-600 hover:shadow-lg'
+                  }`}
                 >
-                  Kirim Pesan
+                  {isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}
                 </button>
               </form>
             </div>
