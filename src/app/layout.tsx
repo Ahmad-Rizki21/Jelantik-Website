@@ -14,8 +14,8 @@ export const metadata: Metadata = {
     default: "Jelantik - Internet Fiber Optic Tercepat & Terbaik",
     template: "%s | Jelantik",
   },
-  description: "Jelantik - Solusi internet fiber optic 100% dengan kecepatan tinggi, harga terjangkau, dan layanan 24/7. Nikmati koneksi tanpa batas tanpa FUP.",
-  keywords: ["internet", "fiber optic", "wifi", "internet murah", "internet cepat", "ISP Indonesia"],
+  description: "Jelantik - Penyedia Layanan Internet (ISP) Fiber Optic terbaik untuk perumahan dan rusun. Nikmati internet cepat, stabil, tanpa FUP, dan harga terjangkau.",
+  keywords: ["ISP perumahan", "internet rusun", "provider internet terbaik", "internet fiber optic", "wifi murah rumah", "pasang wifi rusun", "Jelantik Internet", "ISP Jakarta"],
   authors: [{ name: "Jelantik" }],
   creator: "Jelantik",
   publisher: "Jelantik",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     url: "https://www.jelantik.com",
-    title: "Jelantik - Internet Fiber Optic Tercepat & Terbaik",
-    description: "Solusi internet fiber optic 100% dengan kecepatan tinggi dan harga terjangkau.",
+    title: "Jelantik - ISP Fiber Optic Terbaik untuk Perumahan & Rusun",
+    description: "Provider internet fiber optic 100% khusus perumahan dan rusun dengan kecepatan tinggi dan harga terbaik.",
     siteName: "Jelantik",
     images: [
       {
@@ -76,6 +76,8 @@ export const metadata: Metadata = {
   },
 };
 
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,8 +85,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${inter.variable} font-sans`}>
-      <body className="min-h-screen flex flex-col bg-white">
+      <body className="min-h-screen flex flex-col bg-white overflow-x-hidden">
         <MainLayoutWrapper>{children}</MainLayoutWrapper>
+        <FloatingWhatsApp />
       </body>
     </html>
   );
