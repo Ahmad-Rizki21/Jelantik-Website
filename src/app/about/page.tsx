@@ -6,7 +6,11 @@ import type { ReactElement } from "react";
 export const metadata: Metadata = {
   title: "Tentang Kami",
   description: "Kenali Jelantik lebih dekat - penyedia solusi Wi-Fi terbaik dengan pengalaman lebih dari 10 tahun.",
+  alternates: {
+    canonical: "/about",
+  },
 };
+
 
 const values = [
   {

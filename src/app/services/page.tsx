@@ -5,7 +5,11 @@ import type { ReactElement } from "react";
 export const metadata: Metadata = {
   title: "Layanan",
   description: "Temukan berbagai layanan terbaik dari Jelantik untuk memenuhi kebutuhan internet Anda.",
+  alternates: {
+    canonical: "/services",
+  },
 };
+
 
 const services = [
   {
