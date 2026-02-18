@@ -77,6 +77,7 @@ export const metadata: Metadata = {
 };
 
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import ChatBot from "@/components/ChatBot";
 
 export default function RootLayout({
   children,
@@ -88,6 +89,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-white overflow-x-hidden">
         <MainLayoutWrapper>{children}</MainLayoutWrapper>
         <FloatingWhatsApp />
+        <ChatBot />
       </body>
     </html>
   );
