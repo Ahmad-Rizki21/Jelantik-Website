@@ -1,5 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
+import './portal.css';
+import './portal-mobile.css';
+import './portal-nav.css';
 
 export default function PortalLayout({
   children,

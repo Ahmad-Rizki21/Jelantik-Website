@@ -76,9 +76,6 @@ export const metadata: Metadata = {
   },
 };
 
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import ChatBot from "@/components/ChatBot";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -88,9 +85,8 @@ export default function RootLayout({
     <html lang="id" className={`${inter.variable} font-sans`}>
       <body className="min-h-screen flex flex-col bg-white overflow-x-hidden">
         <MainLayoutWrapper>{children}</MainLayoutWrapper>
-        <FloatingWhatsApp />
-        <ChatBot />
       </body>
     </html>
   );
 }
+
