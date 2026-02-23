@@ -15,6 +15,7 @@ export default function LoginPage() {
   const [identifier, setIdentifier] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -34,20 +35,51 @@ export default function LoginPage() {
 
       if (!response.ok) {
         setError(data.error || 'Login gagal');
+        setLoading(false);
         return;
       }
 
+      // Successful login
+      setIsSuccess(true);
       router.push('/portal');
       router.refresh();
+      // We don't set loading(false) here because we want to keep the loading state 
+      // visible while Next.js handles the navigation.
     } catch (err) {
       setError('Terjadi kesalahan jaringan. Silakan coba lagi.');
-    } finally {
       setLoading(false);
     }
   };
 
   return (
     <div className="portal-login-page">
+      {/* Full screen loading/redirecting overlay */}
+      {(loading || isSuccess) && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white/80 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="relative mb-8">
+            <div className="w-20 h-20 rounded-3xl bg-white shadow-2xl flex items-center justify-center p-4 animate-bounce">
+              <Image
+                src="/images/icons/icon-96.webp"
+                alt="Jelantik"
+                width={48}
+                height={48}
+              />
+            </div>
+            <div className="absolute -inset-2 border-2 border-blue-600 rounded-[2rem] animate-ping opacity-20"></div>
+          </div>
+          <div className="flex items-center gap-3">
+            <svg className="w-5 h-5 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span className="text-lg font-bold text-slate-900 tracking-tight">
+              {isSuccess ? 'Mempersiapkan Portal...' : 'Memverifikasi Data...'}
+            </span>
+          </div>
+          {isSuccess && <p className="mt-2 text-slate-500 font-medium animate-pulse">Menuju Dashboard Pelanggan</p>}
+        </div>
+      )}
+
       {/* Background decorations */}
       <div className="portal-login-bg">
         <div className="portal-login-bg-circle portal-login-bg-circle-1"></div>
@@ -108,7 +140,7 @@ export default function LoginPage() {
                     onChange={(e) => setIdentifier(e.target.value)}
                     placeholder="nama@email.com - 08123456789"
                     className="portal-login-input"
-                    disabled={loading}
+                    disabled={loading || isSuccess}
                     required
                   />
                 </div>
@@ -128,10 +160,18 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || isSuccess}
                 className="portal-login-btn"
               >
-                {loading ? (
+                {isSuccess ? (
+                  <span className="portal-login-btn-loading">
+                    <svg className="portal-login-spinner" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Berhasil...
+                  </span>
+                ) : loading ? (
                   <span className="portal-login-btn-loading">
                     <svg className="portal-login-spinner" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
