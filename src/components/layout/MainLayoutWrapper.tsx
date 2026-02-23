@@ -12,7 +12,7 @@ export default function MainLayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isPortal = pathname?.startsWith("/portal");
+  const isPortal = pathname?.startsWith("/portal") || pathname?.includes("/portal/");
 
   if (isPortal) {
     return <>{children}</>;

@@ -14,11 +14,11 @@
   padding: 1.5rem; position: relative; overflow: hidden;
   background: linear-gradient(135deg, #f0f5ff 0%, #e8f0fe 50%, #f8fafc 100%);
 }
-.portal-login-bg { position:absolute; inset:0; pointer-events:none; }
-.portal-login-bg-circle { position:absolute; border-radius:50%; }
-.portal-login-bg-circle-1 { width:400px; height:400px; top:-100px; right:-100px; background:rgba(37,99,235,0.06); }
-.portal-login-bg-circle-2 { width:300px; height:300px; bottom:-80px; left:-80px; background:rgba(37,99,235,0.04); }
-.portal-login-bg-circle-3 { width:200px; height:200px; top:40%; left:50%; background:rgba(59,130,246,0.03); }
+.portal-login-bg { position:absolute; inset:0; pointer-events:none; z-index:0; }
+.portal-login-bg-circle { position:absolute; border-radius:50%; z-index:0; }
+.portal-login-bg-circle-1 { width:400px; height:400px; top:-100px; right:-100px; background:rgba(37,99,235,0.06) !important; }
+.portal-login-bg-circle-2 { width:300px; height:300px; bottom:-80px; left:-80px; background:rgba(37,99,235,0.04) !important; }
+.portal-login-bg-circle-3 { width:200px; height:200px; top:40%; left:50%; background:rgba(59,130,246,0.03) !important; }
 .portal-login-container { max-width:440px; width:100%; position:relative; z-index:1; }
 .portal-login-topbar { margin-bottom:2rem; display:flex; justify-content:space-between; align-items:center; padding:0 0.5rem; }
 .portal-login-brand { display:flex; align-items:center; gap:0.5rem; }
