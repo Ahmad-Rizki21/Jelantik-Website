@@ -505,7 +505,7 @@ function generateInvoiceHTML(invoice: any, customerData: any): string {
 
     <div class="footer">
       <p>Terima kasih atas kepercayaan Anda menggunakan layanan <strong>JELANTIK</strong></p>
-      <p>Untuk pertanyaan, hubungi: 089606025227 | info@jelantik.net</p>
+      <p>Untuk pertanyaan, hubungi: 089606025227 | sels@jelantik.com</p>
     </div>
   </div>
 
